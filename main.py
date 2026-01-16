@@ -1,6 +1,5 @@
-# Example file showing a basic pygame "game loop"
 import pygame
-
+from modules.settings import *
 # pygame setup
 pygame.font.init()
 my_font = pygame.font.Font("Kavoon-Regular.ttf", 40)
@@ -9,9 +8,12 @@ pygame.init()
 screensize = (1280, 720)
 screen = pygame.display.set_mode(screensize)
 clock = pygame.time.Clock()
-pcb_rect = pygame.Rect(1200/9, 729/3, 300, 300)
+pcb_rect = pygame.Rect(1280/9, 729/3, 300, 300)
 pcb_image = pygame.image.load("pcb.jpg")
 pcb_image = pygame.transform.scale(pcb_image, (300, 300))
+settings_image = pygame.image.load('Settings.png')
+settings_image = pygame.transform.scale(settings_image, (50, 50))
+settings_rect = pygame.Rect(1200, 40, 50, 50)
 running = True
 pcb = 0
 
@@ -26,9 +28,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-
-    screen.fill("purple")
+    screen.fill("#B2EAD3")
     screen.blit(pcb_image, pcb_rect)
+    screen.blit(settings_image, settings_rect)
 
     # RENDER YOUR GAME HERE
     text_surface = my_font.render(f"{pcb} PCBs", True, (255, 255, 255))
@@ -38,6 +40,6 @@ while running:
     # flip() the display to put your work on screen
     pygame.display.flip()
 
-    clock.tick(30)  # limits FPS to 30
+    clock.tick(15)  # limits FPS to 30
 
 pygame.quit()
