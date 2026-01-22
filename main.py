@@ -1,5 +1,6 @@
 import pygame
 from modules.settings import *
+
 # pygame setup
 pygame.font.init()
 my_font = pygame.font.Font("Kavoon-Regular.ttf", 40)
@@ -14,32 +15,37 @@ pcb_image = pygame.transform.scale(pcb_image, (300, 300))
 settings_image = pygame.image.load('Settings.png')
 settings_image = pygame.transform.scale(settings_image, (50, 50))
 settings_rect = pygame.Rect(1200, 40, 50, 50)
+menu_open = False # The "Switch" variable
+back_rect = pygame.Rect(50, 50, 150, 50)
 running = True
 pcb = 0
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONUP:
-            if pcb_rect.collidepoint(event.pos):
-                pcb += 1
-            pos = pygame.mouse.get_pos()
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONUP:
+            if settings_rect.collidepoint(event.pos):
+                menu_open = True
 
-    screen.fill("#B2EAD3")
-    screen.blit(pcb_image, pcb_rect)
-    screen.blit(settings_image, settings_rect)
+            if menu_open and back_rect.collidepoint(event.pos):
+                menu_open = False
 
-    # RENDER YOUR GAME HERE
-    text_surface = my_font.render(f"{pcb} PCBs", True, (255, 255, 255))
-    screen.blit(text_surface, (100, 50))
+            if not menu_open:
+                if pcb_rect.collidepoint(event.pos):
+                    pcb += 1
 
+    if menu_open:
+        settings(screen)
+    else:
+        screen.fill("#B2EAD3")
+        screen.blit(pcb_image, pcb_rect)
+        screen.blit(settings_image, settings_rect)
 
-    # flip() the display to put your work on screen
+        text_surface = my_font.render(f"{pcb} PCBs", True, (255, 255, 255))
+        screen.blit(text_surface, (100, 50))
+
     pygame.display.flip()
-
-    clock.tick(15)  # limits FPS to 30
+    clock.tick(30)
 
 pygame.quit()
