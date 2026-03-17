@@ -24,27 +24,27 @@ def decode(din):
 
 
 def safesave(data):
-    with open("savegame.json", "w") as f:
+    with open("save/savegame.json", "w") as f:
         json.dump(data, f)
 
     print("Game saved!")
 
-    with open("savegame.json", "r") as f:
-        with open(".savefile.txt", "w") as s:
+    with open("save/savegame.json", "r") as f:
+        with open("save/.savefile.txt", "w") as s:
             s.write(encode(f.read()))
-    with open (".savefile.txt", "r") as f:
-        with open(".hash.txt", "w") as s:
+    with open ("save/.savefile.txt", "r") as f:
+        with open("save/.hash.txt", "w") as s:
             s.write(calchash(f.read()))
 
 def safeload():
 
-    with open (".savefile.txt", "r") as f:
-        with open(".hash.txt", "r") as s:
+    with open ("save/.savefile.txt", "r") as f:
+        with open("save/.hash.txt", "r") as s:
             if s.read() != calchash(f.read()):
 
                 return False
 
-    with open(".savefile.txt", "r") as f:
+    with open("save/.savefile.txt", "r") as f:
         encoded_data = f.read()
         decoded_data = decode(encoded_data)
         data = json.loads(decoded_data)

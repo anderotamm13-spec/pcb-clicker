@@ -15,3 +15,13 @@ def ptc(percent: tuple, customsize=None):
 
 def ptw(percent: int, width: int):
     return int(width / 100)*percent
+
+def ptcx(percentx):
+    w, h = pygame.display.get_surface().get_size()
+    x = percentx/100*w
+    return int(x)
+
+def ptcy(percenty):
+    w, h = pygame.display.get_surface().get_size()
+    y = percenty/100*h
+    return int(y)
