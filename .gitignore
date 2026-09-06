@@ -26,12 +26,14 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 savegame.json
+save
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -206,4 +208,5 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-save/
+save/save/
+save/*
